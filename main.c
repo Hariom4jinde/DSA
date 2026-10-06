@@ -1,81 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 5
-struct queue
+int data[SIZE],top=-1;
+void push(int item)
 {
-    int rear,front;
-    int data[SIZE];
-};
-typedef struct queue QUEUE;
-void enqueue(QUEUE*q,int item)
-{
-    if(q->rear==SIZE-1)
-        printf("\n queue is full");
-    else
+    if(top==SIZE-1)
     {
-        q->rear=q->rear+1;
-        q->data[q->rear]=item;
-        if(q->front==-1)
-            q->front=0;
+        printf("\nStack overflow");
     }
-
-}
-void dequeue(QUEUE*q)
-{
-    if(q->front==-1)
-        printf("\n queue is empty");
     else
     {
-        printf("\nThe deleted element is %d",q->data[q->front]);
-        if(q->front==q->rear)
-        {
-            q->front=-1;
-            q->rear=-1;
-        }
-        else
-            q->front=q->front+1;
-
+        top=top+1;
+        data[top]=item;
     }
 }
-void display(QUEUE q)
+void pop()
 {
-    if(q.front==-1)
-        printf("\n queue is empty");
+    if(top==-1)
+    {
+        printf("\nUnderflow");
+    }
     else
     {
-        printf("\nThe queue content are:\n");
-        int i;
-        for(i=q.front;i<=q.rear;i++)
+        printf("\nElement poped is %d",data[top]);
+        top=top-1;
+    }
+}
+void display()
+{
+    if(top==-1)
+    {
+        printf("\n stack is empty");
+    }
+    else
+    {
+        printf("\n stack content are:\n");
+        for(int i=top;i>=0;i--)
         {
-            printf("%d\n",q.data[i]);
+            printf("%d\n",data[i]);
         }
     }
 }
+
 int main()
 {
-    QUEUE q;
-    q.front=-1;
-    q.rear=-1;
     int item,ch;
-    for(;;){
-    printf("\n 1.insertion");
-    printf("\n 2.deletion");
-    printf("\n 3.display");
-    printf("\n 4.Exit");
-    printf("\n Read the choice:");
-    scanf("%d",&ch);
-    switch(ch)
+    for(;;)
     {
-        case 1:printf("\n Read the item to be push");
-               scanf("%d",&item);
-               enqueue(&q,item);
-               break;
-        case 2:dequeue(&q);
-               break;
-        case 3:display(q);
-               break;
-        default:exit(0);
-    }
+        printf("\n 1.push");
+        printf("\n 2.pop");
+        printf("\n 3.display");
+        printf("\n 4.Exit");
+        printf("\n Read choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("\n Read element to be push:");
+                   scanf("%d",&item);
+                   push(item);
+                   break;
+            case 2:pop();
+                   break;
+            case 3:display();
+                   break;
+            case 4:exit(0);
+        }
+
     }
     return 0;
 }
